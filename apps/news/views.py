@@ -10,7 +10,8 @@ from . import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import logging
 from haystack.views import SearchView as _SearchView
-
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 logger = logging.getLogger("django")
 # Create your views here.
@@ -21,6 +22,7 @@ logger = logging.getLogger("django")
 
 
 #新闻标签页面,和热门新闻
+@method_decorator(cache_page(timeout=120,cache="page_cache"), name="dispatch")
 class IndexView(View):
 
     def get(self, request):
@@ -130,7 +132,6 @@ class NewsBannerView(View):
         return to_json_data(data=data)
 
 
-
 #新闻详情页面
 class NewsDetailView(View):
     """
@@ -212,7 +213,6 @@ class NewsCommentView(View):
         new_content.parent_id = parent_id if parent_id else None
         new_content.save()
         return to_json_data(data=new_content.to_dict_data())
-
 
 
 #新闻搜索

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'news',
     'users',
     'verifications',
+    'admin',
 ]
 
 MIDDLEWARE = [
@@ -111,6 +112,15 @@ CACHES = {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             },
         },
+    "page_cache": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/5",
+        "TIMEOUT": 120,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            },
+        },
+
 }
 #将用户的session保存到redis
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"

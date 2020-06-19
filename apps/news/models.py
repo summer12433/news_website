@@ -1,5 +1,6 @@
 from django.db import models
 from utils.models import ModelBase
+import pytz
 # Create your models here.
 
 
@@ -57,12 +58,17 @@ class Comments(ModelBase):
     #content update_time author__username parent__content parent__author__username
     #parent__update_time
     def to_dict_data(self):  #子评论信息展示
+
+        #修改时间成上海时区
+        asia_shanghai = pytz.timezone("Asia/Shanghai")
+        update_time_local = asia_shanghai.normalize(self.update_time)
+
         comment_dict = {
             "news_id": self.news_id,
             "content_id": self.id,
             "content": self.content,
             "author": self.author.username,
-            "update_time": self.update_time.strftime("%Y年%m月%d日 %H:%M"),
+            "update_time": update_time_local.strftime("%Y年%m月%d日 %H:%M"),
             "parent": self.parent.to_dict_data() if self.parent else None,
         }
         return comment_dict
