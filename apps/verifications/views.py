@@ -13,6 +13,7 @@ from django.views import View
 from django_redis import get_redis_connection
 import logging
 from utils.captcha.captcha import captcha
+from celery_tasks.sms import tasks as sms_tasks
 
 
 logger = logging.getLogger("django")        #图形验证码放在日志器输出
@@ -106,8 +107,13 @@ class SmsCodesView(View):
             #发送短信，通知平台
             logger.info("SMS code:{}".format(sms_num))      #把验证码输出在打印台
 
-            logger.info("发送短信验证码正常：[mobile:{}, sms_code: {}]".format(mobile, sms_num))
+            #调用celery发送短信
+            expires = 5
+            sms_tasks.send_sms_code.delay(mobile, sms_num, expires, 1)
             return to_json_data(errno=Code.OK, errmsg="短信验证码发送成功")
+
+            # logger.info("发送短信验证码正常：[mobile:{}, sms_code: {}]".format(mobile, sms_num))
+            # return to_json_data(errno=Code.OK, errmsg="短信验证码发送成功")
 
             # try:
             #     result = CCP().send_template_sms(mobile, [sms_num, 5], 1)

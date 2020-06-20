@@ -241,4 +241,6 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 # 站点域名和端口配置
 SITE_DOMAIN_PORT = "http://47.100.201.79:8000"
 
-
+# FastDFS
+FDFS_URL = 'http://47.100.201.79:8888/'
+FDFS_CLIENT_CONF = os.path.join(BASE_DIR, 'utils/fastdfs/client.conf')
