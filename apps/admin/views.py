@@ -1064,18 +1064,19 @@ class UsersEditView(PermissionRequiredMixin, View):
             logger.info('从前端获取参数出现异常：\n{}'.format(e))
             return to_json_data(errno=Code.PARAMERR, errmsg='参数错误')
 
-        try:
+        try:    #判断组在不在用户输入的，set列表去重
             groups_set = set(int(i) for i in groups) if groups else set()
         except Exception as e:
             logger.info('传的用户组参数异常：\n{}'.format(e))
             return to_json_data(errno=Code.PARAMERR, errmsg='用户组参数异常')
-
+        #查询数据库 调用set转换成集合
         all_groups_set = set(i.id for i in Group.objects.only('id'))
+        #issubset 判断用户输入的是否是数据库的子集
         if not groups_set.issubset(all_groups_set):
             return to_json_data(errno=Code.PARAMERR, errmsg='有不存在的用户组参数')
-
+        #id__in= 判断用户输入的组在不在数据库
         gs = Group.objects.filter(id__in=groups_set)
-        # 先清除组
+        # 清除组
         user_instance.groups.clear()
         user_instance.groups.set(gs)
 

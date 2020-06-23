@@ -1,7 +1,7 @@
 import json
 
-
 from django.contrib.auth import login, logout
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse
 # Create your views here.
 from django.views import View
@@ -69,7 +69,7 @@ class LoginView(View):
     def post(self, request):
         #获取参数
         json_data = request.body
-
+        next_url = request.POST.get("next")
         if not json_data:
             return to_json_data(errno=Code.PARAMERR, errmsg="参数为空，请从新输入")
 
@@ -79,6 +79,12 @@ class LoginView(View):
         form = LoginForm(data=dict_data, request=request)
         if form.is_valid():
             return to_json_data(errmsg="登陆成功")
+            # if next_url:
+            #     # return redirect(next_url)
+            #     return to_json_data(errmsg="登陆成功")
+            # return redirect(next_url)
+
+
 
         else:
             #定义错误信息列表

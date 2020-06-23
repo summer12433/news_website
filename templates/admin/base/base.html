@@ -68,7 +68,7 @@ desired effect
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>返回新闻首页</b></span>
     </a>
 
     <!-- Header Navbar -->
@@ -183,7 +183,7 @@ desired effect
               <!-- The user image in the navbar-->
               <img src="{% static 'images/c.jpg' %}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">蓝羽老师</span>
+              <span class="hidden-xs">Summer</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -216,7 +216,7 @@ desired effect
                   <a href="#" class="btn btn-default btn-flat">个人详情</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">登出</a>
+                  <a href="{% url "users:logout" %}" class="btn btn-default btn-flat">登出</a>
                 </div>
               </li>
             </ul>
@@ -239,7 +239,7 @@ desired effect
           <img src="{% static 'images/c.jpg' %}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>蓝羽</p>
+          <p>Summer</p>
           <!-- Status -->
 {#          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>#}
         </div>

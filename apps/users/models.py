@@ -38,3 +38,16 @@ class User(AbstractUser):   #继承用户模型类
 
     def __str__(self):    #打印显示名字，对用户友好
         return self.username
+
+
+    #关联用户组
+    def get_group_name(self):
+        group_name_list = (i.name for i in self.groups.all())
+
+        return "|".join(group_name_list)
+
+
+
+
+
+
