@@ -125,4 +125,3 @@ class Banner(ModelBase):
         return '<轮播图{}>'.format(self.id)
 
 
-

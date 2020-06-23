@@ -244,3 +244,6 @@ SITE_DOMAIN_PORT = "http://47.100.201.79:8000"
 # FastDFS
 FDFS_URL = 'http://47.100.201.79:8888/'
 FDFS_CLIENT_CONF = os.path.join(BASE_DIR, 'utils/fastdfs/client.conf')
+
+#上传图片fastdfs地址
+FASTDFS_SERVER_DOMAIN = "http://47.100.201.79:8888/"

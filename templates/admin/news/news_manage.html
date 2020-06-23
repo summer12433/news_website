@@ -98,13 +98,13 @@
        <tbody>
         {% for one_news in news_info %}
           <tr>
-           <td><a href="{% url 'news:news_detail' one_news.id%}" target="_blank">{{ one_news.title }}</a></td>
+           <td><a href="{% url 'news:news_detail' one_news.id %}" target="_blank">{{ one_news.title }}</a></td>
            <td>{{ one_news.author.username }}</td>
            <td>{{ one_news.tag.name }}</td>
            <td>{{ one_news.update_time }}</td>
            <td>
 {#             <a href="{% url 'admin:news_edit' one_news.id %}" class="btn btn-xs btn-warning">编辑</a>#}
-             <a href="#" class="btn btn-xs btn-warning">编辑</a>
+             <a href="{% url "admin:news_edit" one_news.id %}" class="btn btn-xs btn-warning">编辑</a>
              <a href="javascript:void (0);" class="btn btn-xs btn-danger btn-del" data-news-id="{{ one_news.id }}">删除</a>
            </td>
          </tr>

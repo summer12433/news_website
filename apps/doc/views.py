@@ -25,8 +25,10 @@ class DocDownload(View):
         doc = Doc.objects.only("file_url").filter(is_delete=False, id=doc_id).first()
         if doc:
             doc_url = doc.file_url
+            #http://47.100.201.79:8888/
             #拼接文档地址
-            doc_url = settings.SITE_DOMAIN_PORT + doc_url
+            if doc_url.split("/")[1] == "media":
+                doc_url = settings.SITE_DOMAIN_PORT + doc_url
             try:
                 #获取文件二进制，FileResponse接收带有任何二进制类容的对象，stream=True,指定访问才下载，不指定会立即保存到redis
                 res = FileResponse(requests.get(doc_url, stream=True))
